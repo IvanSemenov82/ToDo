@@ -2,6 +2,8 @@ const input = document.querySelector('input');
 const button = document.querySelector('button');
 
 const todolist = document.querySelector(".todolist"); // получаем node с классом todolist
+const headerlist = document.querySelector(".headerlist"); // получаем node с классом headerlist
+const navlist = document.querySelector(".navlist"); // получаем node с классом navlist
 
 let inputValue = '';
 
@@ -9,7 +11,8 @@ input.addEventListener('input', () => onChangeInput(input.value));
 button.addEventListener('click', () => addTodo(inputValue));
 
 getTodos();
-
+getHeaderlinks();
+getNavlist();
 
 
 function createNodesFromArray(array, parentNode) {
@@ -35,6 +38,26 @@ function getTodos() {
   })
   .then((data) => {
     createNodesFromArray(data, todolist)
+  });
+}
+
+function getHeaderlinks() {
+    fetch('http://localhost:3000/headerlinks')
+  .then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+    createNodesFromArray(data, headerlist)
+  });
+}
+
+function getNavlist() {
+    fetch('http://localhost:3000/navlinks')
+  .then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+    createNodesFromArray(data, navlist)
   });
 }
 
